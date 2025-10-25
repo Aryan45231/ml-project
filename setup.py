@@ -13,5 +13,5 @@ version="0.1.0",
 author="Aryan",
 author_email="aryan78231@gmail.com",
 packages=find_packages(),
-install_requires=get_requirements("requirements.tst"),
+install_requires=get_requirements("requirements.txt"),
 )

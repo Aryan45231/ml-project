@@ -1,2 +1,13 @@
 # Created by venv; see https://docs.python.org/3/library/venv.html
 myenv
+__pycache__/
+*.pyc
+.DS_Store
+.ipynb_checkpoints
+.env
+.vscode/
+.idea/
+data/
+models/
+outputs/
+project_1.egg-info

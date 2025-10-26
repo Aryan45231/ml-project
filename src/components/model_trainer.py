@@ -54,8 +54,46 @@ class ModelTrainer:
                 "XGBRegressor": XGBRegressor()
             }
 
+            params = {
+                "Decision Tree": {
+                    'criterion': ['squared_error', 'friedman_mse', 'absolute_error', 'poisson'],
+                    'splitter': ['best', 'random'],
+                    'max_depth': [3, 5, 10, 15, 20, None]
+                },
+                "Random Forest": {
+                    'n_estimators': [50, 100, 200],
+                    'criterion': ['squared_error', 'friedman_mse', 'absolute_error', 'poisson'],
+                    'max_depth': [3, 5, 10, 15, 20, None]
+                },
+                "Gradient Boosting": {
+                    'learning_rate': [0.01, 0.1, 0.2, 0.3],
+                    'n_estimators': [50, 100, 200],
+                    'subsample': [0.6, 0.7, 0.8, 0.9, 1.0]
+                },
+                "SVR": {
+                    'kernel': ['linear', 'poly', 'rbf', 'sigmoid'],
+                    'C': [0.1, 1, 10, 100],
+                    'gamma': ['scale', 'auto']
+                },
+                "KNeighbors": {
+                    'n_neighbors': [3, 5, 7, 9],
+                    'weights': ['uniform', 'distance'],
+                    'metric': ['euclidean', 'manhattan']
+                },
+                "CatBoost": {
+                    'depth': [4, 6, 8],
+                    'learning_rate': [0.01, 0.1, 0.2],
+                    'iterations': [100, 200, 300]
+                },
+                "XGBRegressor": {
+                    'learning_rate': [0.01, 0.1, 0.2],
+                    'n_estimators': [100, 200, 300],
+                    'max_depth': [3, 5, 7]
+                }
+            }
+
             logging.info("Models defined for training")
-            model_report = evaluate_models(X_train, y_train, X_test, y_test, models)
+            model_report = evaluate_models(X_train, y_train, X_test, y_test, models , params)
 
 
             logging.info("Model evaluation completed finding best model")

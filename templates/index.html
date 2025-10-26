@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Score Predictor - ML Project</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            color: white;
+            font-size: 1.5em;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+            display: inline-block;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .nav-links .cta-button {
+            background: white;
+            color: #667eea;
+            padding: 8px 20px !important;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9em !important;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            opacity: 1;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 150px 20px 100px;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .hero h1 {
+            font-size: 3.5em;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .hero p {
+            font-size: 1.3em;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Features Section */
+        .features {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 60px;
+            color: #333;
+        }
+
+        .section-title span {
+            color: #667eea;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border-left: 5px solid #667eea;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        .feature-card p {
+            color: #666;
+            font-size: 0.95em;
+            line-height: 1.8;
+        }
+
+        /* Concept Section */
+        .concepts {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 80px 20px;
+            margin: 80px 0;
+        }
+
+        .concepts-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .concept-item {
+            background: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            border-left: 5px solid #764ba2;
+            animation: slideIn 0.6s ease forwards;
+        }
+
+        .concept-item:nth-child(1) { animation-delay: 0.1s; }
+        .concept-item:nth-child(2) { animation-delay: 0.2s; }
+        .concept-item:nth-child(3) { animation-delay: 0.3s; }
+        .concept-item:nth-child(4) { animation-delay: 0.4s; }
+
+        .concept-item h4 {
+            color: #764ba2;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .concept-item p {
+            color: #555;
+            line-height: 1.8;
+        }
+
+        /* Model Performance Section */
+        .performance {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .stat-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-section {
+            margin-bottom: 20px;
+        }
+
+        .footer-section h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .footer-contact {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        .footer-contact a {
+            color: #667eea;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-contact a:hover {
+            color: #764ba2;
+        }
+
+        .divider {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin: 30px 0;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2em;
+            }
+
+            .hero p {
+                font-size: 1.1em;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.9em;
+            }
+
+            .section-title {
+                font-size: 2em;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-contact {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="/" class="nav-brand">📊 Math Score Predictor</a>
+            <ul class="nav-links">
+                <li><a href="#concepts">Concepts</a></li>
+                <li><a href="/predict" class="cta-button">🚀 Try Now</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>🎓 Machine Learning Math Score Predictor</h1>
+        <p>Predict student math performance using advanced ML algorithms trained on comprehensive educational data</p>
+        <a href="/predict" class="cta-button">🚀 Start Predicting Now</a>
+    </section>
+
+    <!-- Concepts Section -->
+    <section class="concepts" id="concepts">
+        <div class="concepts-container">
+            <h2 class="section-title">Understanding the <span>Concepts</span></h2>
+            
+            <div class="concept-item">
+                <h4>📊 Dataset & Exploratory Data Analysis (EDA)</h4>
+                <p>This project began with analyzing a comprehensive dataset of 1000+ student records. Through EDA, I explored data distributions, identified patterns, detected outliers, and understood correlations between different variables to inform model development.</p>
+            </div>
+
+            <div class="concept-item">
+                <h4>🔧 Feature Engineering & Data Preprocessing</h4>
+                <p>I implemented robust preprocessing pipelines using scikit-learn's ColumnTransformer to handle both numerical and categorical features separately. This included standardization for numerical features and encoding for categorical variables (gender, race, education level, lunch type, test preparation status).</p>
+            </div>
+
+            <div class="concept-item">
+                <h4>🤖 Multiple Supervised Learning Models</h4>
+                <p>I trained and experimented with various machine learning algorithms including Linear Regression, Ridge Regression, Lasso Regression, Decision Trees, Random Forest, Gradient Boosting, and Support Vector Machines to find the best performing model for this prediction task.</p>
+            </div>
+
+            <div class="concept-item">
+                <h4>📈 Model Selection & Performance Metrics</h4>
+                <p>I compared all models using performance metrics like R² Score, Mean Squared Error (MSE), and Mean Absolute Error (MAE). Through careful analysis and comparison of these metrics, I selected the best-performing model that provides accurate and reliable predictions.</p>
+            </div>
+
+            <div class="concept-item">
+                <h4>⚙️ Hyperparameter Tuning</h4>
+                <p>To optimize model performance, I conducted hyperparameter tuning using techniques like Grid Search and Randomized Search. This involved testing different parameter combinations to find the optimal configuration that maximizes the model's predictive accuracy.</p>
+            </div>
+
+            <div class="concept-item">
+                <h4>💾 Model Serialization & Deployment</h4>
+                <p>The trained model and preprocessing pipeline were serialized into pickle files for easy storage and deployment. This allows the model to be loaded and used in production without retraining, enabling real-time predictions through this web interface.</p>
+            </div>
+
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 10px; margin-top: 30px; text-align: center;">
+                <h3 style="margin-bottom: 15px;">🎓 My Learning Journey</h3>
+                <p style="line-height: 1.8; font-size: 1.05em;">This project represents my comprehensive learning of Machine Learning concepts and practices. It covers the entire ML pipeline from data exploration to model deployment. This is my <strong>first machine learning project</strong>, and I'm excited to showcase what I've learned! Many more projects are on the way as I continue my journey in data science and machine learning. 🚀</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>About This Project</h4>
+                <p>This ML project demonstrates the practical application of machine learning in educational analytics, showing how data science can be used to understand and predict student performance.</p>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="footer-section">
+                <h4>Get Started</h4>
+                <p>Ready to predict math scores? Fill in the student information form and get instant predictions powered by machine learning.</p>
+                <a href="/predict" class="cta-button" style="display: inline-block; margin-top: 15px;">Go to Predictor Form</a>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="footer-contact">
+                <div>
+                    <strong>Created by:</strong> <a href="https://github.com/Aryan45231" target="_blank">Aryan Jaiswal</a>
+                </div>
+                <div>
+                    <strong>Email:</strong> <a href="mailto:aryan78231@gmail.com">aryan78231@gmail.com</a>
+                </div>
+                <div>
+                    <strong>Project Repository:</strong> <a href="https://github.com/Aryan45231/ml-project" target="_blank">View on GitHub</a>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <p>&copy; 2024 Math Score Predictor | ML Project 1 | All Rights Reserved</p>
+        </div>
+    </footer>
+</body>
+</html>
